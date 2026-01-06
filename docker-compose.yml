@@ -1,0 +1,40 @@
+services:
+    main-service:
+        image: ghcr.io/catcom9/cicd_project_master/app:latest
+        env_file: ./.env
+        depends_on:
+            - login-service
+            - appointment-service
+            - records-service
+        ports:
+            - "8080:8080"
+        networks:
+            - net
+
+    login-service:
+        image: ghcr.io/donal1999/login_mediflow/app:latest
+        env_file: ./.env
+        ports:
+            - "8081:8080"
+        networks:
+            - net
+
+    appointment-service:
+        image: ghcr.io/mia-acton/mediflow-appointment/app:latest
+        env_file: ./.env
+        ports:
+            - "8082:8080"
+        networks:
+            - net
+
+    records-service:
+        image: ghcr.io/martaprietos/cicd3patientrecords/app:latest
+        env_file: ./.env
+        ports:
+            - "8083:8080"
+        networks:
+            - net
+
+
+networks:
+    net:
